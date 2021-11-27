@@ -34,7 +34,7 @@ const UserSchema = new Schema({
     avatar: {
         type: Schema.Types.ObjectId,
         ref: "images",
-        default: "6160f33c86d6f59b128f2e0f",
+        default: "61a1dd066d48e1823b7d40a1",
         required: true,
     },
     created: {

@@ -111,7 +111,7 @@ class LevelController {
             const maxLevel = await LevelModel.countDocuments();
             const newLevel = new LevelModel(value);
             newLevel.number = maxLevel + 1;
-            newLevel.save();
+            await newLevel.save();
             response.status(201).json(ResponseMessage.create(true, {}));
         } catch (error) {
             res.status(500).json(
@@ -164,7 +164,7 @@ class LevelController {
             const newLesson = new LessonModel(request.body);
             newLesson.number = maxLesson + 1;
             newLesson.level = findLevelId;
-            newLesson.save();
+            await newLesson.save();
             response.status(201).json(ResponseMessage.create(true, {}));
         } catch (error) {
             console.log(error);

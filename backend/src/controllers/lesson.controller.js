@@ -119,11 +119,11 @@ class LessonController {
             const newQuestion = new QuestionModel(request.body.question);
             newQuestion.lesson = findLesson._id;
             newQuestion.number = countQuestion + 1;
-            newQuestion.save();
-            request.body.answer.forEach((answer) => {
+            await newQuestion.save();
+            request.body.answer.forEach(async (answer) => {
                 const newAnswer = new AnswerModel(answer);
                 newAnswer.question = newQuestion._id;
-                newAnswer.save();
+                await newAnswer.save();
             });
             response.status(201).json(ResponseMessage.create(true, {}));
         } catch (error) {

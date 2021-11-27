@@ -3,7 +3,7 @@ const multer = require("multer");
 const path = require("path");
 const { upload } = require("../core/config/upload_image.config");
 const ImageModel = require("../models/image.model");
-
+const ResponseMessage = require("../utils/ResponseMessage");
 class ImageController {
     /*
         Get image
@@ -16,11 +16,13 @@ class ImageController {
         if (!findImage)
             return response
                 .status(404)
-                .json({
-                    data: {},
-                    message: "Image does not exist in the database",
-                    success: false,
-                });
+                .json(
+                    ResponseMessage.create(
+                        false,
+                        {},
+                        "Image does not exist in the database"
+                    )
+                );
         const filePath = path.join(__dirname, "../public/images/", image_name);
         const stat = fs.statSync(filePath);
         response.writeHead(200, {
@@ -45,20 +47,20 @@ class ImageController {
             if (err)
                 return response
                     .status(400)
-                    .json({
-                        data: {},
-                        message: "An error occurred when uploading image",
-                        success: false,
-                    });
+                    .json(
+                        ResponseMessage.create(
+                            false,
+                            {},
+                            "An error occurred when uploading image"
+                        )
+                    );
 
             if (request.file === undefined)
                 return response
                     .status(400)
-                    .json({
-                        data: {},
-                        message: "Image is required",
-                        success: false,
-                    });
+                    .json(
+                        ResponseMessage.create(false, {}, "Image is required")
+                    );
             // create new image model
             const newImage = new ImageModel();
             newImage.filename = request.file.filename;
@@ -66,24 +68,25 @@ class ImageController {
             // save database
             try {
                 const saveImage = await newImage.save();
-                response
-                    .status(200)
-                    .json({
-                        data: {
+                response.status(200).json(
+                    ResponseMessage.create(
+                        true,
+                        {
                             filename: saveImage.filename,
                             content_type: saveImage.content_type,
                         },
-                        message: "Upload image success",
-                        success: true,
-                    });
-            } catch {
-                response
-                    .status(500)
-                    .json({
-                        data: {},
-                        message: "An error occurred when uploading image",
-                        success: false,
-                    });
+                        "Upload image success"
+                    )
+                );
+            } catch (error) {
+                res.status(500).json(
+                    ResponseMessage.create(
+                        false,
+                        {},
+                        "The server has an error",
+                        error.message
+                    )
+                );
             }
         });
     }

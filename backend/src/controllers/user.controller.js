@@ -1,15 +1,15 @@
 const UserModel = require("../models/user.model");
-const TokenModel = require("../models/token.model");
+const ImageModel = require("../models/image.model");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const multer = require("multer");
 const {
     createUserValidate,
     updateUserValidate,
     validateChangePassword,
 } = require("../utils/validates/user.validate");
 const saltRounds = process.env.SALT_ROUNDS;
-const json_key = process.env.JSON_WEB_TOKEN_KEY;
 const ResponseMessage = require("../utils/ResponseMessage");
+const { upload } = require("../core/config/upload_image.config");
 class UserController {
     /*
         Get all users
@@ -52,7 +52,7 @@ class UserController {
                     .json(
                         ResponseMessage.create(false, {}, "User is not exist")
                     );
-            const { username, slug, email, avatar } = findUserInfo;
+            const { username, slug, email, avatar, created } = findUserInfo;
 
             res.status(200).json(
                 ResponseMessage.create(true, {
@@ -60,9 +60,10 @@ class UserController {
                     slug,
                     email,
                     avatar: avatar?.filename,
+                    created,
                 })
             );
-        } catch (error){
+        } catch (error) {
             res.status(500).json(
                 ResponseMessage.create(
                     false,
@@ -303,9 +304,66 @@ class UserController {
     }
     /*
         Change avatar user
-        [PUT] /users/change_avatar
+        [PUT] /user/change_avatar
     */
-    changeUserAvatar(req, res) {}
+    changeUserAvatar(req, res) {
+        upload(req, res, async (err) => {
+            if (err instanceof multer.MulterError)
+                return res
+                    .status(401)
+                    .json({ error: { message: err }, success: false });
+            if (err)
+                return res
+                    .status(400)
+                    .json(
+                        ResponseMessage.create(
+                            false,
+                            {},
+                            "An error occurred when uploading image"
+                        )
+                    );
+
+            if (req.file === undefined)
+                return res
+                    .status(400)
+                    .json(
+                        ResponseMessage.create(false, {}, "Image is required")
+                    );
+            // create new image model
+            const newImage = new ImageModel();
+            newImage.filename = req.file.filename;
+            newImage.content_type = req.file.mimetype;
+            // save database
+            try {
+                const saveImage = await newImage.save();
+                const { id: user_id } = res.locals.decoded;
+                const updateUser = await UserModel.findByIdAndUpdate(
+                    user_id,
+                    { avatar: saveImage._id },
+                    { new: true }
+                );
+                res.status(200).json(
+                    ResponseMessage.create(
+                        true,
+                        {
+                            filename: saveImage.filename,
+                            content_type: saveImage.content_type,
+                        },
+                        "Upload avatar success"
+                    )
+                );
+            } catch (error) {
+                res.status(500).json(
+                    ResponseMessage.create(
+                        false,
+                        {},
+                        "The server has an error",
+                        error.message
+                    )
+                );
+            }
+        });
+    }
 }
 
 module.exports = new UserController();

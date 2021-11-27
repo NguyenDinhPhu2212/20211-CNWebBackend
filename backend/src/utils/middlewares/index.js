@@ -5,6 +5,7 @@ const middlewares = (app) => {
 
     app.get("/user/profile/:slug_user", checkTokenMiddle);
     app.put("/user/profile", checkTokenMiddle);
+    app.put("/user/change_avatar", checkTokenMiddle);
     app.put("/user/change_password", checkTokenMiddle);
     app.use("/learn", checkTokenMiddle);
 };

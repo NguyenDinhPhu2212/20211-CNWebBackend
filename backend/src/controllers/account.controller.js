@@ -74,9 +74,14 @@ class AccountController {
                     "Login success"
                 )
             );
-        } catch {
+        } catch (error) {
             res.status(500).json(
-                ResponseMessage.create(false, {}, "The server has an error", error.message)
+                ResponseMessage.create(
+                    false,
+                    {},
+                    "The server has an error",
+                    error.message
+                )
             );
         }
     }
@@ -92,9 +97,14 @@ class AccountController {
             res.status(200).json(
                 ResponseMessage.create(true, {}, "Logout success")
             );
-        } catch {
+        } catch (error) {
             res.status(500).json(
-                ResponseMessage.create(false, {}, "The server has an error", error.message)
+                ResponseMessage.create(
+                    false,
+                    {},
+                    "The server has an error",
+                    error.message
+                )
             );
         }
     }

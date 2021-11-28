@@ -28,7 +28,7 @@ class AccountController {
             // check username exists
             const findUser = await UserModel.findOne({
                 username: value.username,
-            });
+            }).populate("avatar");
             if (!findUser)
                 return res
                     .status(401)
@@ -70,7 +70,13 @@ class AccountController {
             res.status(200).json(
                 ResponseMessage.create(
                     true,
-                    { slug: findUser.slug, role: findUser.role, token },
+                    {
+                        slug: findUser.slug,
+                        role: findUser.role,
+                        username: findUser.username,
+                        avatar: findUser.avatar?.filename,
+                        token,
+                    },
                     "Login success"
                 )
             );

@@ -4,7 +4,7 @@ const validateQuestion = (data) => {
     const Schema = joi.object({
         question: joi
             .object({
-                content: joi.string().min(6),
+                content: joi.string().min(1),
                 type: joi.string().valid("en", "vi").required(),
             })
             .required(),

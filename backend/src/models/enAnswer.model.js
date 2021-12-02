@@ -18,4 +18,4 @@ const AnswerSchema = new Schema({
         required: true,
     },
 });
-module.exports = mongoose.model("answers", AnswerSchema);
+module.exports = mongoose.model("enAnswers", AnswerSchema);

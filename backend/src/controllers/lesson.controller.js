@@ -1,5 +1,6 @@
 const LessonModel = require("../models/lesson.model");
-const AnswerModel = require("../models/answer.model");
+const ViAnswerModel = require("../models/viAnswer.model");
+const EnAnswerModel = require("../models/enAnswer.model");
 const QuestionModel = require("../models/question.model");
 const ResponseMessage = require("../utils/ResponseMessage");
 const LevelModel = require("../models/level.model");
@@ -10,30 +11,22 @@ const mix = (array) => {
 };
 const getOtherAnswer = async (id, mapQuestion) => {
     try {
-        const otherAnswer = await AnswerModel.find({
+        let otherAnswer = await EnAnswerModel.find({
             _id: { $ne: id },
         })
+            .select("-__v -question")
             .populate("image")
-            .populate("question");
-        otherAnswer.forEach((answer, index) => {
-            if (answer.question.type == "en") otherAnswer.splice(index, 1);
+            .limit(2);
+        otherAnswer = otherAnswer.map((answer) => {
+            return {
+                ...{ ...answer }._doc,
+                image: answer.image?.filename,
+                correct: false,
+            };
         });
-        const one = Math.floor(Math.random() * otherAnswer.length);
-        mapQuestion.push({
-            content: otherAnswer[one].content,
-            image: otherAnswer[one].image?.filename,
-            correct: false,
-        });
-        let two = one + 1;
-        if (one == otherAnswer.length - 1) {
-            two = one - 1;
-        }
-        mapQuestion.push({
-            content: otherAnswer[two].content,
-            image: otherAnswer[two].image?.filename,
-            correct: false,
-        });
+        mapQuestion = [...mapQuestion, ...otherAnswer];
         mix(mapQuestion);
+        return mapQuestion;
     } catch (error) {
         console.log(error);
     }
@@ -75,11 +68,20 @@ class LessonController {
             const totalQuestions = await QuestionModel.countDocuments({
                 lesson: findLesson._id,
             });
-            let correctAnswer = await AnswerModel.find({
-                question: findQuestion._id,
-            })
-                .select("-__v -question")
-                .populate("image");
+            let correctAnswer = [];
+            if (findQuestion.type == "vi") {
+                correctAnswer = await EnAnswerModel.find({
+                    question: findQuestion._id,
+                })
+                    .select("-__v -question")
+                    .populate("image");
+            } else {
+                correctAnswer = await ViAnswerModel.find({
+                    question: findQuestion._id,
+                })
+                    .select("-__v -question")
+                    .populate("image");
+            }
             correctAnswer = correctAnswer.map((answer) => {
                 return {
                     ...{ ...answer }._doc,
@@ -88,7 +90,7 @@ class LessonController {
                 };
             });
             if (findQuestion.type == "vi") {
-                await getOtherAnswer(correctAnswer[0]._id, correctAnswer);
+                correctAnswer = await getOtherAnswer(correctAnswer[0]._id, correctAnswer);
             }
             response.status(200).json(
                 ResponseMessage.create(true, {
@@ -161,7 +163,12 @@ class LessonController {
             newQuestion.number = countQuestion + 1;
             await newQuestion.save();
             request.body.answer.forEach(async (answer) => {
-                const newAnswer = new AnswerModel(answer);
+                let newAnswer;
+                if (newQuestion.type == "vi") {
+                    newAnswer = new EnAnswerModel(answer);
+                } else {
+                    newAnswer = new ViAnswerModel(answer);
+                }
                 newAnswer.question = newQuestion._id;
                 await newAnswer.save();
             });

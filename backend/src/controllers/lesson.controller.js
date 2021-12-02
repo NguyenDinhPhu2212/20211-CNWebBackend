@@ -12,7 +12,12 @@ const getOtherAnswer = async (id, mapQuestion) => {
     try {
         const otherAnswer = await AnswerModel.find({
             _id: { $ne: id },
-        }).populate("image");
+        })
+            .populate("image")
+            .populate("question");
+        otherAnswer.forEach((answer, index) => {
+            if (answer.question.type == "en") otherAnswer.splice(index, 1);
+        });
         const one = Math.floor(Math.random() * otherAnswer.length);
         mapQuestion.push({
             content: otherAnswer[one].content,

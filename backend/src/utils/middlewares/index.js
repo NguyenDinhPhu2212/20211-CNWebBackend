@@ -8,6 +8,7 @@ const middlewares = (app) => {
     app.put("/user/change_avatar", checkTokenMiddle);
     app.put("/user/change_password", checkTokenMiddle);
     app.use("/learn", checkTokenMiddle);
+    app.use("/progress", checkTokenMiddle);
 };
 
 module.exports = { middlewares };

@@ -4,6 +4,35 @@ const QuestionModel = require("../models/question.model");
 const ResponseMessage = require("../utils/ResponseMessage");
 const LevelModel = require("../models/level.model");
 const { validateQuestion } = require("../utils/validates/question.validate");
+const mongoose = require("mongoose");
+const mix = (array) => {
+    array.sort(() => Math.random() - 0.5);
+};
+const getOtherAnswer = async (id, mapQuestion) => {
+    try {
+        const otherAnswer = await AnswerModel.find({
+            _id: { $ne: id },
+        }).populate("image");
+        const one = Math.floor(Math.random() * otherAnswer.length);
+        mapQuestion.push({
+            content: otherAnswer[one].content,
+            image: otherAnswer[one].image?.filename,
+            correct: false,
+        });
+        let two = one + 1;
+        if (one == otherAnswer.length - 1) {
+            two = one - 1;
+        }
+        mapQuestion.push({
+            content: otherAnswer[two].content,
+            image: otherAnswer[two].image?.filename,
+            correct: false,
+        });
+        mix(mapQuestion);
+    } catch (error) {
+        console.log(error);
+    }
+};
 class LessonController {
     /**
      * Get all question of lesson
@@ -43,13 +72,19 @@ class LessonController {
             });
             let correctAnswer = await AnswerModel.find({
                 question: findQuestion._id,
-            }).populate("image");
+            })
+                .select("-__v -question")
+                .populate("image");
             correctAnswer = correctAnswer.map((answer) => {
                 return {
-                    content: answer.content,
+                    ...{ ...answer }._doc,
                     image: answer.image?.filename,
+                    correct: true,
                 };
             });
+            if (findQuestion.type == "vi") {
+                await getOtherAnswer(correctAnswer[0]._id, correctAnswer);
+            }
             response.status(200).json(
                 ResponseMessage.create(true, {
                     question: {

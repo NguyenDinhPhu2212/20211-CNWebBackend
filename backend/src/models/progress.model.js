@@ -13,7 +13,7 @@ const ProgressModel = new Schema({
     },
     level: {
         type: Schema.Types.ObjectId,
-        ref: "users",
+        ref: "levels",
         required: true,
     },
     complete: {

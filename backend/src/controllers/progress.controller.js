@@ -15,7 +15,7 @@ class ProgressController {
             const slug_user = request.params.slug_user;
             const findUser = await UserModel.findOne({ slug: slug_user });
             if (!findUser)
-                response
+                return response
                     .status(404)
                     .json(
                         ResponseMessage.create(false, {}, "User is not exist")
@@ -43,7 +43,7 @@ class ProgressController {
                     return tmp;
                 })
             );
-            response
+            return response
                 .status(200)
                 .json(ResponseMessage.create(true, { progress: progressMap }));
         } catch (error) {

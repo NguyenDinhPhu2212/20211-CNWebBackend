@@ -79,7 +79,7 @@ class ImageController {
                     )
                 );
             } catch (error) {
-                res.status(500).json(
+                response.status(500).json(
                     ResponseMessage.create(
                         false,
                         {},

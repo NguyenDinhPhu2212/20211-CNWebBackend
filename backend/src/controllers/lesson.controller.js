@@ -9,11 +9,13 @@ const mongoose = require("mongoose");
 const mix = (array) => {
     array.sort(() => Math.random() - 0.5);
 };
-const getOtherAnswer = async (id, mapQuestion) => {
+const getOtherAnswer = async (model, correctAnswer) => {
     try {
-        let otherAnswer = await EnAnswerModel.find({
-            _id: { $ne: id },
-        })
+        let otherAnswer = await model
+            .find({
+                _id: { $ne: correctAnswer._id },
+                question: { $ne: correctAnswer.question },
+            })
             .select("-__v -question")
             .populate("image")
             .limit(2);
@@ -24,9 +26,9 @@ const getOtherAnswer = async (id, mapQuestion) => {
                 correct: false,
             };
         });
-        mapQuestion = [...mapQuestion, ...otherAnswer];
-        mix(mapQuestion);
-        return mapQuestion;
+        otherAnswer.push(correctAnswer);
+        mix(otherAnswer);
+        return otherAnswer;
     } catch (error) {
         console.log(error);
     }
@@ -70,27 +72,28 @@ class LessonController {
             });
             let correctAnswer = [];
             if (findQuestion.type == "vi") {
-                correctAnswer = await EnAnswerModel.find({
+                correctAnswer = await EnAnswerModel.findOne({
                     question: findQuestion._id,
                 })
                     .select("-__v -question")
                     .populate("image");
             } else {
-                correctAnswer = await ViAnswerModel.find({
+                correctAnswer = await ViAnswerModel.findOne({
                     question: findQuestion._id,
                 })
                     .select("-__v -question")
                     .populate("image");
             }
-            correctAnswer = correctAnswer.map((answer) => {
-                return {
-                    ...{ ...answer }._doc,
-                    image: answer.image?.filename,
-                    correct: true,
-                };
-            });
+            correctAnswer = {
+                ...{ ...correctAnswer }._doc,
+                image: correctAnswer.image?.filename,
+                correct: true,
+            };
+            let answers = [];
             if (findQuestion.type == "vi") {
-                correctAnswer = await getOtherAnswer(correctAnswer[0]._id, correctAnswer);
+                answers = await getOtherAnswer(EnAnswerModel, correctAnswer);
+            } else {
+                answers = await getOtherAnswer(ViAnswerModel, correctAnswer);
             }
             response.status(200).json(
                 ResponseMessage.create(true, {
@@ -98,14 +101,14 @@ class LessonController {
                         content: findQuestion.content,
                         type: findQuestion.type,
                     },
-                    answer: correctAnswer,
+                    answer: answers,
                     number: number,
                     totalQuestions: totalQuestions,
                 })
             );
         } catch (error) {
             console.log(error);
-            res.status(500).json(
+            response.status(500).json(
                 ResponseMessage.create(
                     false,
                     {},
@@ -174,7 +177,7 @@ class LessonController {
             });
             response.status(201).json(ResponseMessage.create(true, {}));
         } catch (error) {
-            res.status(500).json(
+            response.status(500).json(
                 ResponseMessage.create(
                     false,
                     {},

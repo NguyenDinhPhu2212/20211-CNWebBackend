@@ -14,8 +14,8 @@ const createUserValidate = (data) => {
             .required("Email is required"),
         password: joi
             .string()
-            .pattern(new RegExp("^[a-zA-Z0-9]{8,}$"))
-            .min(8)
+            .pattern(new RegExp("^[a-zA-Z0-9]{6,}$"))
+            .min(6)
             .required("Password is required")
             .messages({
                 "string.pattern.base": `Password is string only contain a-z, A-Z, 0-9`,

@@ -24,7 +24,7 @@ class LevelController {
             response.status(200).json(ResponseMessage.create(true, levels));
         } catch (error) {
             console.log(error);
-            res.status(500).json(
+            response.status(500).json(
                 ResponseMessage.create(
                     false,
                     {},
@@ -72,7 +72,7 @@ class LevelController {
                 .json(ResponseMessage.create(true, findLessons));
         } catch (error) {
             console.log(error);
-            res.status(500).json(
+            response.status(500).json(
                 ResponseMessage.create(
                     false,
                     {},
@@ -114,7 +114,7 @@ class LevelController {
             await newLevel.save();
             response.status(201).json(ResponseMessage.create(true, {}));
         } catch (error) {
-            res.status(500).json(
+            response.status(500).json(
                 ResponseMessage.create(
                     false,
                     {},
@@ -168,7 +168,7 @@ class LevelController {
             response.status(201).json(ResponseMessage.create(true, {}));
         } catch (error) {
             console.log(error);
-            res.status(500).json(
+            response.status(500).json(
                 ResponseMessage.create(
                     false,
                     {},

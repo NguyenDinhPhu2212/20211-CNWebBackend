@@ -1,0 +1,176 @@
+@import "../css/footer.css";
+
+body {
+  margin-top: -48px;
+  background: #fff;
+  color: #3c3c3c;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  margin: 0;
+}
+.header {
+  height: 40px;
+  padding: 10px;
+  border-bottom: solid 1px #fff;
+  display: flex;
+}
+
+.main {
+  background-color: rgba(11, 69, 145, 0.89);
+  padding: 20px;
+  font: bold 24px Arial, Helvetica, sans-serif;
+  color: #fff;
+}
+
+.title {
+  margin-left: 18px;
+  text-decoration: none;
+  background-color: transparent;
+  font-family: "Comic Sans MS", "Comic Sans";
+  color: #fff;
+}
+
+.language {
+  align-items: center;
+  display: flex;
+  font-size: 18px;
+  justify-content: end;
+  flex: 1;
+}
+
+/* select for language */
+select {
+  background-color: transparent;
+  border: none;
+  padding: 0 1em 0 0;
+  margin: 0;
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: inherit;
+  line-height: inherit;
+  z-index: 1;
+  outline: none;
+  color: #fff;
+  font: bold 18px Arial, Helvetica, sans-serif;
+}
+
+select option {
+  color: rgba(11, 69, 145, 0.89);
+  font: bold 18px Arial, Helvetica, sans-serif;
+  padding: 1;
+}
+
+::-ms-expand {
+  display: none;
+}
+
+.select {
+  display: grid;
+  grid-template-areas: "select";
+  align-items: center;
+  position: relative;
+
+  min-width: 15ch;
+  max-width: 30ch;
+  padding: 0.25em 0.5em;
+
+  font-size: 18px;
+  cursor: pointer;
+  line-height: 1.1;
+}
+
+select:focus + .focus {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+}
+
+.select--disabled {
+  cursor: not-allowed;
+}
+
+label {
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.select + label {
+  margin-top: 2rem;
+}
+
+/*content with start button*/
+.content {
+  padding: 10px 50px;
+}
+
+.content_img {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.content_img img {
+  width: 350px;
+  height: 250px;
+}
+
+.content_body {
+  text-align: center;
+}
+
+.content_button {
+  border-radius: 50px;
+  padding: 15px 30px;
+  margin: 10px auto;
+  width: 230px;
+}
+
+.content_body a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.content_body a:hover {
+  text-decoration: underline;
+}
+
+.content_body .start-button {
+  background-color: #14af06;
+}
+
+/* subcontent of more information*/
+.subcontent {
+  text-align: center;
+  padding: 20px 0;
+  font: bold 18px Arial, Helvetica, sans-serif;
+}
+
+.subcontent_img {
+  width: 350px;
+  height: 250px;
+}
+
+.subcontent ul {
+  list-style: none;
+  text-align: left;
+  padding: 10px 400px;
+}
+.subcontent li {
+  margin: 10px 10px;
+}
+
+.subcontent ul img {
+  width: 50px;
+  height: 50px;
+  margin-right: 20px;
+}
+
+footer {
+  font: bold 18px Arial, Helvetica, sans-serif;
+  color: #fff;
+  background-color: rgba(11, 69, 145, 0.89);
+  padding: 20px 20px 35px 20px;
+}

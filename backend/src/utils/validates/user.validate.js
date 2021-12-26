@@ -40,7 +40,7 @@ const validateChangePassword = (data) => {
         current_password: joi.string().required("Password current is required"),
         new_password: joi
             .string()
-            .pattern(new RegExp("^[a-zA-Z0-9]{6,}$"))
+            .pattern(new RegExp("^[a-zA-Z0-9]{8,}$"))
             .required("New password is required")
             .messages({
                 "string.pattern.base": `Password is string only contain a-z, A-Z, 0-9`,

@@ -1,0 +1,139 @@
+@import "../css/footer.css";
+@import "../css/header.css";
+
+body {
+  margin-top: -48px;
+  background: #fff;
+  color: #3c3c3c;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-flow: column;
+}
+
+.content {
+  padding: 10px;
+  background-color: #d1effa87;
+  flex-grow: 1;
+}
+
+#course a {
+  background-color: rgba(11, 69, 145, 0.89);
+  color: #fff;
+}
+
+.content h2 {
+  text-align: center;
+}
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  width: 600px;
+  justify-content: center;
+  margin: 40px auto;
+}
+
+.tabs label {
+  order: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 2rem;
+  margin-right: 0.2rem;
+  cursor: pointer;
+  background-color: #abfe59;
+  font-weight: bold;
+  transition: background ease 0.3s;
+  border-radius: 16px 16px 0 0;
+  width: 90px;
+}
+
+.tabs label:hover {
+    background-color: #6dcc0e;
+}
+
+.tabs .tab {
+  order: 9;
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+  display: none;
+  padding: 1rem;
+  background: #fff;
+  padding: 20px;
+  border: solid 2px #cccaca;
+  border-radius: 15px;
+}
+
+.tabs input[type="radio"] {
+  display: none;
+}
+
+.tabs input[type="radio"]:checked + label {
+  background: #14af06;
+  color: #fff;
+}
+
+.tabs input[type="radio"]:checked + label + .tab {
+  display: block;
+}
+
+@media (max-width: 465px) {
+  .tabs .tab,
+  .tabs label {
+    order: initial;
+  }
+
+  .tabs label {
+    width: 100%;
+    margin-left: 50px;
+  }
+}
+
+.course {
+    display: grid;
+    grid-template-columns: 150px 150px 150px 150px;
+}
+
+.lesson {
+    margin: 10px 20px;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    width: fit-content;
+}
+
+.lesson_index{
+    display: flex;
+    width: 60px;
+    height: 60px;
+    border-radius: 40px;
+    border: solid 10px #14af06;
+    background-color: rgb(245 212 14);
+    opacity: 0.8;
+    align-items: center;
+    justify-content: center;
+}
+
+.lesson .none {
+    background-color: #cccaca;
+}
+
+.lesson_index div{
+    width: 60px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 28px;
+    margin: auto;
+}
+
+.lesson_index:hover{
+    opacity: 1.0;
+}
+
+.lesson_name {
+    padding: 10px 0;
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Learning English - List Courses</title>
+    <meta charset="utf-8" />
+    <link rel="icon" href="../img/title-logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="courses-list.css">
+</head>
+
+<body>
+    <div class="header">
+        <a href="../course-list/courses-list.html" class="title">
+            Learning English
+        </a>
+        <div class="menu">
+            <ul>
+                <li id="course"><a href="../course-list/courses-list.html">Bài học</a></li>
+                <li><a href="#news">News</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </div>
+        <div class="user">
+            <div class="dropdown">
+                <div class="dropbtn">
+                    <img id="avatar" src="../img/avatar.png" class="avatar">
+                    <a id="username" href="../profile/view-profile/view-profile.html">User</a>
+                </div>
+
+                <div class="dropdown-content">
+                    <a href="../profile/view-profile/view-profile.html">Profile</a>
+                    <a href="../change-password/changepass.html">Thay đổi mật khẩu</a>
+                    <a style="cursor:pointer;" id="logout">Đăng xuất</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <h2>Chọn khóa học</h2>
+        <div class="tabs">
+            <input type="radio" name="tabs" id="basic" value="co-ban" checked="checked">
+            <label for="basic">CƠ BẢN</label>
+            <div class="tab">
+                <h2>Chọn bài học</h1>
+                    <div class="course co-ban">
+                    </div>
+
+            </div>
+
+            <input type="radio" name="tabs" value="trung-binh" id="intermediate">
+            <label for="intermediate">TRUNG BÌNH</label>
+            <div class="tab">
+                <h2>Chọn bài học</h2>
+                <div class="course trung-binh">
+
+                </div>
+            </div>
+
+            <input type="radio" name="tabs" value="nang-cao" id="advanced">
+            <label for="advanced">NÂNG CAO</label>
+            <div class="tab">
+                <h2>Chọn bài học</h2>
+                <div class="course nang-cao"></div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="fb">Liên hệ: <a href="#">Facebook</a></span></div>
+        <div class="copyright">&copy; Group 17</div>
+    </div>
+    <script type="module" src="courses-list.js"></script>
+</body>
+
+</html>

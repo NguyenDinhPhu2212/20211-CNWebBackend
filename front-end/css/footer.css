@@ -1,0 +1,20 @@
+.footer {
+  font: bold 18px Arial, Helvetica, sans-serif;
+  color: #fff;
+  background-color: rgba(11, 69, 145, 0.89);
+  padding: 20px 20px 20px 20px;
+}
+
+.fb {
+  float: left;
+}
+
+.fb a {
+  color: #fff;
+  font-weight: normal;
+}
+
+.copyright {
+  display: flex;
+  float: right;
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        login
+    </title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" type="text/css" href="login.css">
+</head>
+    <body>
+        <div class="content">
+            <header>LOG IN</header>
+            <form>
+                <div class="field">
+                    <span class="fa fa-user"></span>
+                    <input type="text" required placeholder="Email or username" id="usernameInput">
+                </div>
+                <div class="field space">
+                <span class="fa fa-lock"></span>
+                <input type="password" class="pass-key" required placeholder="password" id="passwordInput">
+            <span class="show">SHOW</span>
+            </div>
+            <br>
+            <div class="field">
+            <input type="submit" value="LOGIN" id="submitBtn">
+            </div>
+            </form>
+            <div class="login">Or login with</div>
+            <div class="links">
+                <div class="facebook">
+                    <i class="fab fa-facebook-f"><span>Facebook</span></i>
+                </div>
+                <div class="google">
+                    <i class="fab fa-google"><span>Google</span></i>
+                </div>
+            </div>
+            <div class="signup">
+                Don't have account?
+                <a href="../signin/sigin.html">Signup Now</a>
+
+            </div>
+        </div>
+
+    <script type="text/javascript" src="login.js"></script>
+    </body>
+</html>

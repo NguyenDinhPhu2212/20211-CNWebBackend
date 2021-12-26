@@ -71,7 +71,7 @@ class ProgressController {
             const lessonId = request.params.lessonId;
             const findLesson = await LessonModel.findOne({ _id: lessonId });
             if (!findLesson)
-                response
+                return response
                     .status(404)
                     .json(
                         ResponseMessage.create(false, {}, "Lesson is not exist")

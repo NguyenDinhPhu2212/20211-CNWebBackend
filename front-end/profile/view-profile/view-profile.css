@@ -1,0 +1,158 @@
+@import "../../css/footer.css";
+@import "../../css/header.css";
+
+body {
+  margin-top: -48px;
+  background: #fff;
+  color: #3c3c3c;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-flow: column;
+}
+
+.content {
+  padding: 10px;
+  background-color: #d1effa87;
+  flex-grow: 1;
+}
+
+.profile {
+  background-color: #fff;
+  width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  border: solid 2px #cccaca;
+  border-radius: 15px;
+  font-size: 16px;
+  display: flex;
+  min-width: fit-content;
+}
+
+.image {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-flow: column;
+}
+
+#avatar-image {
+  background-color: rgb(253, 247, 247);
+  height: 200px;
+  width: 200px;
+  border: 3px solid rgba(11, 69, 145, 0.89);
+  border-radius: 50%;
+  transition: background ease-out 200ms;
+  background: url(../../img/avatar.png) center center/cover;
+}
+
+#preview {
+  position: relative;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.upload-button {
+  padding: 18px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background-color: #fff;
+  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2),
+    0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+  transition: background-color ease-out 120ms;
+  position: absolute;
+  right: 0%;
+  bottom: 0%;
+}
+.upload-button img {
+  height: 30px;
+  width: 30px;
+}
+.upload-button:hover {
+  background-color: #ddd;
+}
+
+.save-button {
+  background-color: rgba(11, 69, 145, 0.89);
+  color: white;
+  padding: 14px 20px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.save-button:hover {
+  background-color: rgba(4, 52, 114, 0.89);
+}
+
+.info {
+  flex: 1;
+  margin: 0 30px;
+  padding: 20px;
+}
+
+.info h2, h3 {
+  color: rgba(11, 69, 145, 0.89);
+  margin-bottom: 10px;
+}
+
+.info #label{
+  padding: 0 10px;
+  font-weight: bold;
+  display: inline-block;
+  width: 100px;
+}
+
+.info img{
+  margin-left: 25px;
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  padding: 2px;
+  border: solid 2px #cccaca;
+}
+.course {
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  margin: 5px 0;
+}
+
+.progress {
+  padding: 2px;
+  width: 100%;
+  max-width: 500px;
+  background: white;
+  border: 2px solid #1d3cf587;
+  border-radius: 20px;
+  height: 25px;
+  margin-left: 10px;
+}
+
+.course label {
+  font-weight: bold;
+  width: 180px;
+}
+.progress .progress__bar {
+  height: 100%;
+  width: 100%;
+  border-radius: 15px;
+  color: #000;
+  background: linear-gradient(
+    to right,
+    rgb(10 59 194),
+    rgb(10 59 194) 100%,
+    transparent 0%,
+    transparent 100%
+  );
+  text-align: center;
+}
+

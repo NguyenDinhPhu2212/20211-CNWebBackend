@@ -24,14 +24,16 @@ class LevelController {
             response.status(200).json(ResponseMessage.create(true, levels));
         } catch (error) {
             console.log(error);
-            response.status(500).json(
-                ResponseMessage.create(
-                    false,
-                    {},
-                    "The server has an error",
-                    error.message
-                )
-            );
+            response
+                .status(500)
+                .json(
+                    ResponseMessage.create(
+                        false,
+                        {},
+                        "The server has an error",
+                        error.message
+                    )
+                );
         }
     }
     /**
@@ -61,6 +63,7 @@ class LevelController {
                     number: item.number,
                     slug: item.slug,
                     level: item.level?.slug,
+                    _id: item._id,
                 };
             });
             if (!findLessons)
@@ -72,14 +75,16 @@ class LevelController {
                 .json(ResponseMessage.create(true, findLessons));
         } catch (error) {
             console.log(error);
-            response.status(500).json(
-                ResponseMessage.create(
-                    false,
-                    {},
-                    "The server has an error",
-                    error.message
-                )
-            );
+            response
+                .status(500)
+                .json(
+                    ResponseMessage.create(
+                        false,
+                        {},
+                        "The server has an error",
+                        error.message
+                    )
+                );
         }
     }
     /**
@@ -114,14 +119,16 @@ class LevelController {
             await newLevel.save();
             response.status(201).json(ResponseMessage.create(true, {}));
         } catch (error) {
-            response.status(500).json(
-                ResponseMessage.create(
-                    false,
-                    {},
-                    "The server has an error",
-                    error.message
-                )
-            );
+            response
+                .status(500)
+                .json(
+                    ResponseMessage.create(
+                        false,
+                        {},
+                        "The server has an error",
+                        error.message
+                    )
+                );
         }
     }
     /**
@@ -168,14 +175,16 @@ class LevelController {
             response.status(201).json(ResponseMessage.create(true, {}));
         } catch (error) {
             console.log(error);
-            response.status(500).json(
-                ResponseMessage.create(
-                    false,
-                    {},
-                    "The server has an error",
-                    error.message
-                )
-            );
+            response
+                .status(500)
+                .json(
+                    ResponseMessage.create(
+                        false,
+                        {},
+                        "The server has an error",
+                        error.message
+                    )
+                );
         }
     }
 }

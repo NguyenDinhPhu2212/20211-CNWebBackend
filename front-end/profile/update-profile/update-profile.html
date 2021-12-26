@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Learning English - Update Profile</title>
+    <meta charset="utf-8" />
+    <link rel="icon" href="../../img/title-logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="update-profile.css">
+</head>
+
+<body>
+    <div class="header">
+        <a href="../../course-list/courses-list.html" class="title">
+            Learning English
+        </a>
+        <div class="menu">
+            <ul>
+                <li id="course"><a href="../../course-list/courses-list.html">Bài học</a></li>
+                <li><a href="#news">News</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </div>
+        <div class="user">
+            <div class="dropdown">
+                <div class="dropbtn">
+                    <img id="avatar" src="../../img/avatar.png" class="avatar">
+                    <a id="username" href="../view-profile/view-profile.html">User</a>
+                </div>
+
+                <div class="dropdown-content">
+                    <a href="../view-profile/view-profile.html">Profile</a>
+                    <a href="../../change-password/changepass.html">Thay đổi mật khẩu</a>  
+                    <a style="cursor:pointer;" id="logout">Đăng xuất</a> 
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="content">
+        <div id="form" class="form">
+            <h2>UPDATE EMAIL ADDRESS</h2>
+            <label for="current">Email hiện tại:</label><br>
+            <input type="text" id="current" name="current" placeholder="Your current email" readonly><br>
+            <label for="new">Email mới:</label><br>
+            <input type="text" id="new" name="new" placeholder="Your new email"><br><br>
+            <button id="submit">SUBMIT</button>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="fb">Liên hệ: <a href="#">Facebook</a></span></div>
+        <div class="copyright">&copy; Group 17</div>
+    </div>
+    
+    <script type="module" src="update-profile.js"></script>
+</body>
+
+</html>
